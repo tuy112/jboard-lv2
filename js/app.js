@@ -29,8 +29,8 @@ http .createServer((request, response) => {
 // ======================구분선=============================
 
 // routing
-app.use('/index', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', indexRouter);
+app.use('/routes/users', usersRouter);
 
 // ======================구분선=============================
 
@@ -77,7 +77,7 @@ module.exports = router;
 
 // ======================구분선=============================
 
-// middleware : 어떤 요청이 들어와도 middleware 함수는 한번만 실행
+// middleware
 app.use((req, res, next) => {
   console.log("middleware");
   next();
