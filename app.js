@@ -1,7 +1,7 @@
 const http = require("http");
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const indexRouter = require('./js/routes/index');
+const usersRouter = require('./js/routes/users');
 
 const express = require('express');
 const router = express.Router();
