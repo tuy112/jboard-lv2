@@ -1,11 +1,15 @@
 const http = require("http");
 
-const indexRouter = require('./js/routes/index');
-const usersRouter = require('./js/routes/users');
+const indexRouter = require('./schemas/index');
+const usersRouter = require('./routes/users');
 
 const express = require('express');
 const router = express.Router();
 let arr = [];
+
+// mongoDB
+const connect = require("./schemas");
+connect();
 
 // server
 http .createServer((request, response) => {
@@ -85,3 +89,4 @@ app.use((req, res, next) => {
 
 // ======================구분선=============================
 
+// mongoose
