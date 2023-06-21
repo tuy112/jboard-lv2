@@ -20,3 +20,7 @@ app.use("/api", [usersRouter]);
 // mongoDB
 const connect = require("./schemas");
 connect();
+
+// carts
+const cartsRouter = require("./routes/carts");
+app.use("/api", [goodsRouter, cartsRouter]);
