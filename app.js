@@ -1,5 +1,4 @@
 const express = require('express');
-const cookieParser = require("cookie-parser");
 const app = express();
 const port = 3000;
 
@@ -14,10 +13,9 @@ app.use(express.json());
 
 // 라우터 설정
 const usersRouter = require('./routes/users');
-const cartsRouter = require('./routes/carts');
-app.use('/api', [usersRouter, cartsRouter]);
+// const cartsRouter = require('./routes/carts');
+app.use('/api', [usersRouter]);
 
-app.use(cookieParser());
 app.use(express.static("assets")); 
 
 // 기본 라우트 설정
@@ -43,8 +41,8 @@ app.get('/signup', (req, res) => {
   res.send(`
     <h1>회원가입</h1>
     <form action="/signup" method="POST">
-      <label for="username">사용자명:</label>
-      <input type="text" id="username" name="username">
+      <label for="usersId">사용자명:</label>
+      <input type="text" id="usersId" name="usersId">
       <br>
       <label for="password">비밀번호:</label>
       <input type="password" id="password" name="password">
@@ -81,9 +79,9 @@ app.post('/login', async (req, res) => {
 
 
 // 회원가입 완료 버튼 클릭 시
-debugger;
 app.post('/signup', async (req, res) => {
   const { usersId, password, email } = req.body;
+  console.log(req.body);
 
   // 회원가입 처리 로직 작성
   try {
