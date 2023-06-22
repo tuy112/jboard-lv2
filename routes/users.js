@@ -1,30 +1,35 @@
-// routes/user.js
-
 const express = require('express');
-const router = express.Router;
+const router = express.Router();
 
 const Users = require("../schemas/users");
+
+// POST /api/users
 router.post("/users", async (req, res) => {
-	const { usersId, name, thumbnailUrl, category, price } = req.body;
+  const { usersId, name, email } = req.body;
 
-  const users = await users.find({ usersId });
-  if (users.length) {
-    return res.status(400).json({ success: false, errorMessage: "이미 있는 데이터입니다." });
+  try {
+    const existingUser = await Users.findOne({ usersId });
+    if (existingUser) {
+      return res.status(400).json({ success: false, errorMessage: "이미 있는 데이터입니다." });
+    }
+
+    const createdUser = await Users.create({ usersId, name, email });
+
+    res.json({ users: createdUser });
+  } catch (error) {
+    console.error("회원 생성 에러:", error);
+    res.status(500).json({ success: false, errorMessage: "서버 에러" });
   }
-
-  const createdUsers = await Users.create({ usersId, name, thumbnailUrl, category, price });
-
-  res.json({ users: createdUsers });
 });
 
-// localhost:3000/api/ GET
+// GET /api/users
 router.get("/", (req, res) => {
-  res.send("default url for users.js GET Method");
+  res.send("users.js 기본 경로 GET 메서드");
 });
 
-// localhost:3000/api/about GET
+// GET /api/users/about
 router.get("/about", (req, res) => {
-  res.send("users.js about PATH");
+  res.send("users.js about 경로");
 });
 
 module.exports = router;
